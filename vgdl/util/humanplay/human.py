@@ -38,7 +38,8 @@ class HumanController:
             # Only does something for VGDL because Atari's Pyglet is event-based
             self.controls.capture_key_presses()
 
-            obs, reward, done, info = self.env.step(self.controls.current_action)
+            # This line control the turn of the player and pnj
+            obs, reward, done, info = self.env.step(self.controls.current_action, self.controls.endTurn)
             if reward:
                 logger.debug("reward %0.3f" % reward)
 
@@ -75,6 +76,8 @@ class HumanController:
                 time.sleep(1. / self.fps)
 
             time.sleep(1. / self.fps)
+            # Reset the endTurn value to allow Sprites update until the next player turn
+            self.controls.endTurn = False
 
 
     def debug(self, *args, **kwargs):
@@ -145,3 +148,4 @@ def determine_controller(env_name):
         return HumanVGDLController
     else:
         return HumanAtariController
+

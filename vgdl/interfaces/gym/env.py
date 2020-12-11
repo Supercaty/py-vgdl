@@ -103,10 +103,12 @@ class VGDLEnv(gym.Env):
                 return observation.as_array()
             return observation
 
-    def step(self, a):
+    def step(self, a, endTurn):
+    # endTurn is used to manage sprites update
+
         # if not self.mode_initialised:
         #     raise Exception('Please call `render` at least once for initialisation')
-        self.game.tick(self._action_keys[a])
+        self.game.tick(self._action_keys[a], endTurn)
         state = self._get_obs()
         reward = self.game.score - self.score_last
         self.score_last = self.game.score

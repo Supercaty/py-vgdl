@@ -44,6 +44,8 @@ class Controls:
         self.restart = False
         self.pause = False
         self.debug = False
+        # Adding end of turn variable
+        self.endTurn = False
 
 
     def capture_key_presses(self):
@@ -62,6 +64,9 @@ class Controls:
         elif key == self.debug_key:
             print('DEBUG')
             self.debug = not self.debug
+        # Push F1 trigger the end of the turn
+        elif key == self.end_key:
+            self.endTurn = True
         elif key in self.activated:
             self.activated[key] = True
 
@@ -120,6 +125,9 @@ class PygameKeys:
     DOWN = pygame.K_DOWN
     SPACE = pygame.K_SPACE
 
+    # Key to end the turn
+    F1 = pygame.K_F1
+
 
 KEYS_TO_VGDL_ACTION = {
     # Note how this noop is spelled different from the Atari one
@@ -163,11 +171,14 @@ class VGDLControls(Controls):
         self.activated = { key: False for name, key in vars(PygameKeys).items() \
                 if not name.startswith('__') or name in ['RETURN', 'ESCAPE', 'PAUSE'] }
 
+        # Key to end the turn
+        self.end_key = pygame.K_F1
+
         self.pause_key = pygame.K_PAUSE
         self.return_key = pygame.K_RETURN
         self.debug_key = pygame.K_ESCAPE
         self.escape_key = pygame.K_ESCAPE
-        self.special_keys = [self.pause_key, self.escape_key, self.return_key, self.debug_key]
+        self.special_keys = [self.pause_key, self.escape_key, self.return_key, self.debug_key, self.end_key]
 
         # There is a serious need for throttling in Pygame that is not present in Pyglet
         # Make sure a special button can only be pressed once every `throttle` seconds

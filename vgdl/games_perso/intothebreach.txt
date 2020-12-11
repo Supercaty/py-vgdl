@@ -1,0 +1,30 @@
+BasicGame block_size=1
+	
+	SpriteSet
+
+		ground > Immovable img=newset/tile4
+		sea > Immovable img=newset/water4 autotiling=True
+		movable >
+			avatar > MovingAvatar
+				onNothing > img=perso/avatarN
+				onAlly > img=perso/avatarA
+				onEnemy > img=perso/avatarE
+			enemy > RandomNPC img=newset/camel3
+			ally > Passive img=newset/humanShotgun
+
+	LevelMapping
+
+		. > ground
+		s > ground sea
+		A > ground onNothing
+		U > ground ally
+		E > ground enemy
+
+	InteractionSet
+		
+		movable sea  > stepBack
+		avatar ally > transformTo stype=onAlly
+		avatar enemy > transformTo stype=onEnemy
+		avatar ground > transformTo stype=onNothing
+	
+	TerminationSet		

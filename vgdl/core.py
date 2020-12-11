@@ -865,7 +865,9 @@ class BasicGameLevel:
         action_dict = avatar_cls.declare_possible_actions()
         return {a.keys: a for a in action_dict.values() if include_noop or a != ACTION.NOOP}
 
-    def tick(self, action: Union[Action, int]):
+    def tick(self, action: Union[Action, int], endTurn):
+        # endTurn is used to manage sprites update 
+
         """
         Actions are currently communicated to the rest of the program
         through game.keystate, which mimics pygame.key.get_pressed().
@@ -907,7 +909,13 @@ class BasicGameLevel:
         # update queue
         self.update_queue.clear()
         for s in self.sprite_registry.sprites():
-            self.update_queue.append(s)
+            # Don't update other sprites during avatar's turn
+            if not endTurn:
+                if s.is_avatar:
+                    self.update_queue.append(s)    
+            else:
+                # While the player push F1 it's the end of the turn, now updating all sprites
+                self.update_queue.append(s)
 
         # While loop because it can keep growing, for loops are fickle
         while self.update_queue:
