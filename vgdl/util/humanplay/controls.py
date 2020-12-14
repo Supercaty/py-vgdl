@@ -128,10 +128,17 @@ class PygameKeys:
     # Key to end the turn
     F1 = pygame.K_F1
 
+    # Keys to control the Avatar
+    F2 = pygame.K_F2
+    F3 = pygame.K_F3
+
 
 KEYS_TO_VGDL_ACTION = {
     # Note how this noop is spelled different from the Atari one
     tuple(): 'NO_OP',
+    (pygame.K_F1,): 'F1',
+    (pygame.K_F2,): 'F2',
+    (pygame.K_F3,): 'F3',
     (pygame.K_SPACE,): 'SPACE',
     (pygame.K_RIGHT,): 'RIGHT', (pygame.K_LEFT,): 'LEFT',
     (pygame.K_DOWN,): 'DOWN', (pygame.K_UP,): 'UP',

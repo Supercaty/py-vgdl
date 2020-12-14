@@ -31,6 +31,7 @@ __all__ = [
     'ShootAvatar',
     'ShootEverywhereAvatar',
     'VerticalAvatar',
+    'StrategyAvatar',
 ]
 
 
@@ -47,7 +48,6 @@ class MovingAvatar(VGDLSprite, Avatar):
 
         possible_actions = self.__class__.declare_possible_actions()
         self.keys_to_action = {tuple(sorted(a.keys)): a for a in possible_actions.values()}
-
 
     @classmethod
     def declare_possible_actions(cls) -> Dict[str, Action]:
@@ -95,6 +95,17 @@ class MovingAvatar(VGDLSprite, Avatar):
         action = self._read_action(game)
         if not action == NOOP:
             self.physics.active_movement(self, action)
+
+class StrategyAvatar(MovingAvatar):
+	# New Avatar type made for strategy games
+
+    @classmethod
+    def declare_possible_actions(cls):
+        from pygame.locals import K_SPACE, K_F2, K_F3
+        actions = super().declare_possible_actions()
+        actions["F2"] = Action(K_F2)
+        actions["F3"] = Action(K_F3)
+        return actions
 
 class HorizontalAvatar(MovingAvatar):
     """ Only horizontal moves.  """

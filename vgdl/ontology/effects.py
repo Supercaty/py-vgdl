@@ -269,6 +269,10 @@ def teleportToExit(sprite, partner, game):
     sprite.rect = e.rect
     sprite.lastmove = 0
 
+def interactWith(sprite, partner, game):
+    # This effects allow the player to select units and move them or use them to attack
+    a = 1
+
 class SpendResource(Effect):
     def __init__(self, *args, **kwargs):
         self.target = kwargs.pop('target')

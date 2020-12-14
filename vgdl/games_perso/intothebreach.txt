@@ -5,7 +5,7 @@ BasicGame block_size=1
 		ground > Immovable img=newset/tile4
 		sea > Immovable img=newset/water4 autotiling=True
 		movable >
-			avatar > MovingAvatar
+			avatar > StrategyAvatar
 				onNothing > img=perso/avatarN
 				onAlly > img=perso/avatarA
 				onEnemy > img=perso/avatarE

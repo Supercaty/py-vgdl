@@ -36,8 +36,11 @@ __all__ = [
     'SpriteProducer',
     'WalkJumper',
     'Walker',
+    'Focus',
 ]
 
+class Focus():
+    a = 2
 
 class Immovable(VGDLSprite):
     """

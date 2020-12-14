@@ -464,7 +464,8 @@ class ACTION:
     SPACE = Action(pygame.K_SPACE)
     SPACE_RIGHT = Action(pygame.K_SPACE, pygame.K_RIGHT)
     SPACE_LEFT = Action(pygame.K_SPACE, pygame.K_LEFT)
-
+    F2 = Action(pygame.K_F2)
+    F3 = Action(pygame.K_F3)
 
 class BasicGame:
     """
