@@ -269,6 +269,12 @@ def teleportToExit(sprite, partner, game):
     sprite.rect = e.rect
     sprite.lastmove = 0
 
+def moveTo(sprite, partner, game):
+    killSprite(sprite, partner, game)
+
+def attackTo(sprite, partner, game):
+    killSprite(sprite, partner, game)
+
 def interactWith(sprite, partner, game):
     # This effects allow the player to select units and move them or use them to attack
     a = 1

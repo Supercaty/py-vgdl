@@ -4,6 +4,8 @@ BasicGame block_size=1
 
 		ground > Immovable img=newset/tile4
 		sea > Immovable img=newset/water4 autotiling=True
+		moveSprite > MoveSprite
+		attackSprite > AttackSprite
 		movable >
 			avatar > StrategyAvatar
 				onNothing > img=perso/avatarN
@@ -26,5 +28,7 @@ BasicGame block_size=1
 		avatar ally > transformTo stype=onAlly
 		avatar enemy > transformTo stype=onEnemy
 		avatar ground > transformTo stype=onNothing
+		moveSprite ally > moveTo
+		attackSprite ally > attackTo
 	
 	TerminationSet		

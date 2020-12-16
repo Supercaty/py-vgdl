@@ -11,7 +11,7 @@ from vgdl.core import VGDLSprite, Avatar, Action, Resource, ACTION
 from vgdl.tools import unit_vector
 from vgdl.util import *
 from .constants import *
-from .sprites import SpriteProducer, OrientedSprite
+from .sprites import SpriteProducer, OrientedSprite, MoveSprite, AttackSprite
 from .physics import GridPhysics, ContinuousPhysics, GravityPhysics
 
 
@@ -96,16 +96,35 @@ class MovingAvatar(VGDLSprite, Avatar):
         if not action == NOOP:
             self.physics.active_movement(self, action)
 
-class StrategyAvatar(MovingAvatar):
+class StrategyAvatar(MovingAvatar, SpriteProducer):
 	# New Avatar type made for strategy games
 
+	# This type of Avatar uses a F1 and F2 to interact with the underneath sprite
     @classmethod
     def declare_possible_actions(cls):
-        from pygame.locals import K_SPACE, K_F2, K_F3
+        from pygame.locals import K_F2, K_F3
         actions = super().declare_possible_actions()
         actions["F2"] = Action(K_F2)
         actions["F3"] = Action(K_F3)
         return actions
+
+    # A stype must be declared in the game description to allow Avatar sprite selection
+    # It's impossible to only declare it inside the class because games interaction must be
+    # declared in the game description.
+    def __init__(self, stype=None, **kwargs):
+        self.stype = stype
+        MovingAvatar.__init__(self, **kwargs)
+
+    def update(self, game):
+        MovingAvatar.update(self, game)
+        self._select(game)
+
+    def _select(self, game):
+        from pygame.locals import K_F2, K_F3
+        if K_F2 in game.active_keys:
+            game.create_sprite("moveSprite", (self.rect.left, self.rect.top))
+        if K_F3 in game.active_keys: 
+            game.create_sprite("attackSprite", (self.rect.left, self.rect.top))
 
 class HorizontalAvatar(MovingAvatar):
     """ Only horizontal moves.  """

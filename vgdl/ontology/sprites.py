@@ -36,11 +36,10 @@ __all__ = [
     'SpriteProducer',
     'WalkJumper',
     'Walker',
-    'Focus',
+    'InteractionSprite',
+    'MoveSprite',
+    'AttackSprite',
 ]
-
-class Focus():
-    a = 2
 
 class Immovable(VGDLSprite):
     """
@@ -86,6 +85,23 @@ class Spreader(Flicker):
                 if game.random_generator.random() < self.spreadprob:
                     game.create_sprite(self.name, (self.lastrect.left + u[0] * self.lastrect.size[0],
                                                      self.lastrect.top + u[1] * self.lastrect.size[1]))
+
+class InteractionSprite(VGDLSprite):
+    color = BLACK
+
+    def update(self, game):
+        VGDLSprite.update(self, game)
+
+        self._age += 1
+        if self._age >= self.limit:
+            # game.kill_sprite(self)
+            game.destroy_sprite(self) 
+
+class MoveSprite(InteractionSprite):
+    color = BLUE   
+
+class AttackSprite(InteractionSprite):
+    color = RED
 
 class SpriteProducer(VGDLSprite):
     """ Superclass for all sprites that may produce other sprites, of type 'stype'. """
