@@ -92,10 +92,10 @@ class InteractionSprite(VGDLSprite):
     def update(self, game):
         VGDLSprite.update(self, game)
 
-        self._age += 1
-        if self._age >= self.limit:
-            # game.kill_sprite(self)
-            game.destroy_sprite(self) 
+        # self._age += 1
+        # if self._age >= self.limit:
+        #     # game.kill_sprite(self)
+        #     game.destroy_sprite(self) 
 
 class MoveSprite(InteractionSprite):
     color = BLUE   

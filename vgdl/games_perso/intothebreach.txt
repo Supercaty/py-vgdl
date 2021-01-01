@@ -29,6 +29,6 @@ BasicGame block_size=1
 		avatar enemy > transformTo stype=onEnemy
 		avatar ground > transformTo stype=onNothing
 		moveSprite ally > moveTo
-		attackSprite ally > attackTo
+		attackSprite enemy > attackTo
 	
 	TerminationSet		
